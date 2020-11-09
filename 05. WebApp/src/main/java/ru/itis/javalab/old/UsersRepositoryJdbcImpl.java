@@ -1,6 +1,9 @@
-package ru.itis.javalab.repositories;
+package ru.itis.javalab.old;
 
 import ru.itis.javalab.models.User;
+import ru.itis.javalab.old.RowMapper;
+import ru.itis.javalab.old.SimpleJdbcTemplate;
+import ru.itis.javalab.repositories.UsersRepository;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -17,6 +20,13 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     //language=SQL
     private static final String SQL_SELECT = "select * from users";
 
+    //language=SQL
+    private static final String SQL_SELECT_BY_USERNAME = "select * from users where username = ?";
+
+    //language=SQL
+    private static final String SQL_INSERT = "insert into users (firstname, lastname, age, username, password)" +
+            "VALUES (?, ?, ?, ?, ?)";
+
     private DataSource dataSource;
 
     private SimpleJdbcTemplate template;
@@ -31,6 +41,8 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             .firstName(row.getString("firstname"))
             .lastName(row.getString("lastname"))
             .age(row.getInt("age"))
+            .username(row.getString("username"))
+            .password(row.getString("password"))
             .build();
 
     public List<User> findByAgeAndLastname(Integer age, String lastname) {
@@ -45,6 +57,18 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     @Override
     public Optional<User> findFirstByFirstnameAndLastname(String firstName, String lastName) {
         return Optional.empty();
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        List<User> users = template.query(SQL_SELECT_BY_USERNAME, userRowMapper, username);
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
+    public boolean userIsExist(String username) {
+        List<User> users = template.query(SQL_SELECT_BY_USERNAME, userRowMapper, username);
+        return !users.isEmpty();
     }
 
     @Override

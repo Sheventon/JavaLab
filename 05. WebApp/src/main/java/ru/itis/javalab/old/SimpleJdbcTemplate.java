@@ -1,4 +1,4 @@
-package ru.itis.javalab.repositories;
+package ru.itis.javalab.old;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -20,7 +20,6 @@ public class SimpleJdbcTemplate {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        System.out.println(args.length);
 
         try {
             connection = dataSource.getConnection();

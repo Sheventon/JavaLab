@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<context:component-scan base-package="ru.itis.javalab"/>-->
+
+<!--    <context:property-placeholder location="db.properties"/>-->
+
+<!--
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+-->
+
+    <!--<bean id="usersService" class="ru.itis.javalab.services.UsersServiceImpl">
+        <constructor-arg name="usersRepository" ref="usersRepository"/>
+        <constructor-arg name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>-->
+
+    <!--<bean id="cookieService" class="ru.itis.javalab.services.CookieServiceImpl">
+        <constructor-arg name="usersRepository" ref="usersRepository"/>
+        <constructor-arg name="cookieRepository" ref="cookieRepository"/>
+    </bean>-->
+
+    <!--<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
+
+    <!--<bean id="usersRepository" class="ru.itis.javalab.repositories.UsersRepositoryJdbcTemplateImpl">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>-->
+
+    <!--<bean id="cookieRepository" class="ru.itis.javalab.repositories.CookieRepositoryImpl">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>-->
+
+    <!--<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg name="configuration" ref="hikariConfig"/>
+    </bean>-->
+
+    <!--<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="maximumPoolSize" value="${db.jdbc.hikari.max-pool-size}"/>
+        <property name="password" value="${db.jdbc.password}"/>
+        <property name="driverClassName" value="${db.jdbc.driver-class-name}"/>
+        <property name="username" value="${db.jdbc.username}"/>
+        <property name="jdbcUrl" value="${db.jdbc.url}"/>
+    </bean>-->
+
+</beans>
