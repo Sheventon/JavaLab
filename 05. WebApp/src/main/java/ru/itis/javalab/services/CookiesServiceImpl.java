@@ -1,7 +1,7 @@
 package ru.itis.javalab.services;
 
 import ru.itis.javalab.models.UserCookie;
-import ru.itis.javalab.repositories.CookieRepository;
+import ru.itis.javalab.repositories.CookiesRepository;
 import ru.itis.javalab.repositories.UsersRepository;
 
 import javax.servlet.http.Cookie;
@@ -12,30 +12,30 @@ import java.util.UUID;
 public class CookieServiceImpl implements CookieService {
 
     private UsersRepository usersRepository;
-    private CookieRepository cookieRepository;
+    private CookiesRepository cookiesRepository;
 
-    public CookieServiceImpl(UsersRepository usersRepository, CookieRepository cookieRepository) {
+    public CookieServiceImpl(UsersRepository usersRepository, CookiesRepository cookiesRepository) {
         this.usersRepository = usersRepository;
-        this.cookieRepository = cookieRepository;
+        this.cookiesRepository = cookiesRepository;
     }
 
     @Override
     public void generateCookieByUserId(HttpServletRequest req, HttpServletResponse resp, String username) {
         Long userId = usersRepository.findByUsername(username).getId();
         String auth;
-        UserCookie userCookie = cookieRepository.findUserCookieByUserId(userId);
+        UserCookie userCookie = cookiesRepository.findUserCookieByUserId(userId);
         if(userCookie != null) {
             auth = userCookie.getUserCookie();
         } else {
             do {
                 auth = UUID.randomUUID().toString();
-            } while (cookieRepository.findUserCookieByUserId(userId) != null);
+            } while (cookiesRepository.findUserCookieByUserId(userId) != null);
             UserCookie newUserCookie = UserCookie.builder()
                     .userId(userId)
                     .userCookie(auth)
                     .build();
 
-            cookieRepository.save(newUserCookie);
+            cookiesRepository.save(newUserCookie);
         }
         Cookie cookie = new Cookie("Auth", auth);
         cookie.setMaxAge(60 * 60);
@@ -45,6 +45,11 @@ public class CookieServiceImpl implements CookieService {
 
     @Override
     public UserCookie getCookieByAuth(String cookie) {
-        return cookieRepository.findUserCookieByCookie(cookie);
+        return cookiesRepository.findUserCookieByCookie(cookie);
+    }
+
+    @Override
+    public UserCookie getCookieByUserId(Long userId) {
+        return cookiesRepository.findUserCookieByUserId(userId);
     }
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public interface CookieService {
     void generateCookieByUserId(HttpServletRequest req, HttpServletResponse resp, String username);
     UserCookie getCookieByAuth(String cookie);
+    UserCookie getCookieByUserId(Long userId);
 }
