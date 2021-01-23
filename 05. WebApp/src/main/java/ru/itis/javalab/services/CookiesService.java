@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public interface CookieService {
+public interface CookiesService {
     void generateCookieByUserId(HttpServletRequest req, HttpServletResponse resp, String username);
     UserCookie getCookieByAuth(String cookie);
     UserCookie getCookieByUserId(Long userId);

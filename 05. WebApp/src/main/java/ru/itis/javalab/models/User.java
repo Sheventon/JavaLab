@@ -18,5 +18,7 @@ public class User {
     private Integer age;
     private String username;
     private String password;
+    private String description;
+    private Boolean isDeleted;
 }
 

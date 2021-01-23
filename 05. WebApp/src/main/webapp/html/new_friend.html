@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Friend</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+
+<div class="sign-up-page">
+    <div class="heading-sign-up">
+        <a id="register" class="active"><span>New Friend</span></a>
+    </div>
+    <div class="form">
+        <form class="login-form" id="form" action="/friends" method="post">
+            <div class="input-field">
+                <label for="firstname"><span>First Name</span></label>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name">
+            </div>
+            <div class="input-field">
+                <label for="lastname"><span>Last Name</span></label>
+                <input type="text" id="lastname" name="lastname" placeholder="LastName">
+            </div>
+            <div class="input-field">
+                <label for="age"><span>Age</span></label>
+                <input type="text" id="age" name="age" placeholder="Age">
+            </div>
+            <div class="input-field">
+                <label for="descr"><span>Smth bout him</span></label>
+                <input type="text" id="descr" name="descr">
+            </div>
+            <input type="submit" value="Add New Friend" class="input-button">
+        </form>
+    </div>
+</div>
+</body>
+</html>

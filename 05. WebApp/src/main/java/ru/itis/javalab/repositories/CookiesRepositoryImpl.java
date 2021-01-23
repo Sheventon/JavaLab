@@ -11,36 +11,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class CookieRepositoryImpl implements CookieRepository {
+public class CookiesRepositoryImpl implements CookiesRepository {
 
     //language=SQL
-    private static final String SQL_SELECT = "select * from cookie";
+    private static final String SQL_SELECT = "select * from cookies";
 
     //language=SQL
-    private static final String SQL_SELECT_BY_USER_ID = "select * from cookie where user_id = ?";
+    private static final String SQL_SELECT_BY_USER_ID = "select * from cookies where user_id = ?";
 
     //language=SQL
-    private static final String SQ_SELECT_BY_COOKIE = "select * from cookie where cookie = ?";
+    private static final String SQ_SELECT_BY_COOKIE = "select * from cookies where cookie = ?";
 
     //language=SQL
-    private static final String SQL_DELETE_BY_USER_ID = "delete from coookie where user_id = ?";
+    private static final String SQL_DELETE_BY_USER_ID = "delete from cookies where user_id = ?";
 
     //language=SQL
-    private static final String SQL_INSERT_COOKIE = "insert into cookie(user_id, cookie)" +
+    private static final String SQL_INSERT_COOKIE = "insert into cookies (user_id, cookie)" +
             "values (?, ?)";
 
     //language=SQL
-    private static final String SQL_UPDATE = "update cookie set user_id = ?, cookie = ?";
+    private static final String SQL_UPDATE = "update cookies set user_id = ?, cookie = ?";
 
-    //private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
-    //private SimpleJdbcTemplate template;
 
-    public CookieRepositoryImpl(DataSource dataSource) {
-        //this.dataSource = dataSource;
+    public CookiesRepositoryImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("cookie").usingColumns("user_id", "cookie");
+        this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("cookies").usingColumns("user_id", "cookie");
     }
 
     private RowMapper<UserCookie> cookieRowMapper = (row, i) -> UserCookie.builder()
@@ -72,28 +69,12 @@ public class CookieRepositoryImpl implements CookieRepository {
     }
 
     @Override
-    public void save(UserCookie entity) {
+    public Long save(UserCookie entity) {
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", entity.getUserId());
         params.put("cookie", entity.getUserCookie());
         simpleJdbcInsert.execute(params);
-        /*try(Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    SQL_INSERT_COOKIE, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setLong(1, entity.getUserId());
-            preparedStatement.setString(2, entity.getUserCookie());
-
-            int affectedRows = preparedStatement.executeUpdate();
-            if(affectedRows > 0) {
-                try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
-                    resultSet.next();
-                } catch (SQLException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        } catch (SQLException e) {
-            throw new IllegalStateException(e);
-        }*/
+        return entity.getUserId();
     }
 
     @Override

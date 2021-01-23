@@ -9,16 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.itis.javalab.repositories.CookieRepository;
-import ru.itis.javalab.repositories.CookieRepositoryImpl;
-import ru.itis.javalab.repositories.UsersRepository;
-import ru.itis.javalab.repositories.UsersRepositoryJdbcTemplateImpl;
-import ru.itis.javalab.services.CookieService;
-import ru.itis.javalab.services.CookieServiceImpl;
-import ru.itis.javalab.services.UsersService;
-import ru.itis.javalab.services.UsersServiceImpl;
+import ru.itis.javalab.repositories.*;
+import ru.itis.javalab.services.*;
 
 import javax.sql.DataSource;
 import java.util.Objects;
@@ -47,13 +42,23 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public CookieService cookieService() {
-        return new CookieServiceImpl(usersRepository(), cookieRepository());
+    public CookiesService cookieService() {
+        return new CookiesServiceImpl(usersRepository(), cookieRepository());
     }
 
     @Bean
-    public CookieRepository cookieRepository() {
-        return new CookieRepositoryImpl(dataSource());
+    public CookiesRepository cookieRepository() {
+        return new CookiesRepositoryImpl(dataSource());
+    }
+
+    @Bean
+    public FriendsRepository friendsRepository() {
+        return new FriendsRepositoryImpl(dataSource());
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
     }
 
     @Bean
@@ -76,5 +81,4 @@ public class ApplicationConfig {
         hikariConfig.setPassword(environment.getProperty("db.jdbc.password"));
         return hikariConfig;
     }
-
 }

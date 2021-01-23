@@ -2,13 +2,35 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-    <servlet>
-        <servlet-name>users-servlet</servlet-name>
-        <servlet-class>ru.itis.javalab.servlets.UsersServlet</servlet-class>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>users-servlet</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
+    <session-config>
+        <session-timeout>360</session-timeout>
+    </session-config>
+
+    <filter>
+        <filter-name>csrfFilter</filter-name>
+        <filter-class>ru.itis.javalab.filters.CsrfFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>csrfFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>loggingFilter</filter-name>
+        <filter-class>ru.itis.javalab.filters.LoggingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loggingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>ru.itis.javalab.filters.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

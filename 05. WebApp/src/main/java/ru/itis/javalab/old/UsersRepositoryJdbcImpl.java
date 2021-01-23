@@ -82,8 +82,8 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     }
 
     @Override
-    public void save(User entity) {
-
+    public Long save(User entity) {
+        return null;
     }
 
     @Override

@@ -14,16 +14,18 @@ import java.util.Optional;
 
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert simpleJdbcInsert;
+    private final JdbcTemplate jdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
-    private RowMapper<User> userRowMapper = (row, i) -> User.builder()
+    private final RowMapper<User> userRowMapper = (row, i) -> User.builder()
             .id(row.getLong("id"))
             .firstName(row.getString("firstname"))
             .lastName(row.getString("lastname"))
             .age(row.getInt("age"))
             .username(row.getString("username"))
             .password(row.getString("password"))
+            .description(row.getString("description"))
+            .isDeleted(row.getBoolean("is_deleted"))
             .build();
 
 
@@ -43,7 +45,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     private static final String SQL_SELECT_BY_FIRSTNAME_AND_LASTNAME = "select * from users where firstname = ? and lastname = ?";
 
     //language=SQL
-    private static final String SQL_UPDATE = "update users set firstname = ?, lastname = ?, age = ?, username = ?, password = ?";
+    private static final String SQL_UPDATE = "update users set firstname = ?, lastname = ?, age = ?, username = ?, password = ?, description = ?, is_deleted = ? where id = ?";
 
     //language=SQL
     private static final String SQL_DELETE_BY_ID = "delete from users where id = ?";
@@ -51,7 +53,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     public UsersRepositoryJdbcTemplateImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("users")
-                .usingColumns("firstname", "lastname", "age", "username", "password")
+                .usingColumns("firstname", "lastname", "age", "username", "password", "description")
                 .usingGeneratedKeyColumns("id");
     }
 
@@ -100,20 +102,22 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     }
 
     @Override
-    public void save(User entity) {
+    public Long save(User entity) {
         Map<String, Object> params = new HashMap<>();
         params.put("firstname", entity.getFirstName());
         params.put("lastname", entity.getLastName());
         params.put("age", entity.getAge());
         params.put("username", entity.getUsername());
         params.put("password", entity.getPassword());
+        params.put("description", entity.getDescription());
         entity.setId((Long) simpleJdbcInsert.executeAndReturnKey(params));
+        return entity.getId();
     }
 
     @Override
     public void update(User entity) {
         jdbcTemplate.update(SQL_UPDATE, entity.getFirstName(), entity.getLastName(),
-                entity.getAge(), entity.getUsername(), entity.getPassword());
+                entity.getAge(), entity.getUsername(), entity.getPassword(), entity.getDescription(), entity.getIsDeleted(), entity.getId());
     }
 
     @Override

@@ -1,0 +1,48 @@
+body {
+    font-family: "SF Pro Display", sans-serif;
+    color: #fff;
+    background: #1d2124;
+}
+
+.main {
+    padding-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.top-text {
+    height: auto;
+    padding: 50px;
+    width: 50%;
+}
+
+.photo-full-width {
+    height: 500px;
+    background-image: url("../img/about_me.jpeg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-bottom: 50px;
+    color: gray;
+}
+
+.name {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    list-style: none;
+}
+
+.footer {
+    height: 100px;
+    width: auto;
+    /*background-color: #f5f5dc;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer p {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    /*color: #333;*/
+}

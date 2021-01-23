@@ -1,0 +1,99 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #1d2124;
+    height: 100vh;
+    font-family: "SF Pro Display", sans-serif;
+    color: #FFFFFF;
+}
+
+.login-page {
+    width: 360px;
+    padding: 67px 0 0;
+    margin: 0 auto;
+    background: linear-gradient(90deg, rgba(59, 66, 73, 0.6) 0%, rgba(59, 66, 73, 0.9) 100%);
+    height: calc(100vh - 67px);
+}
+
+.sign-up-page {
+    width: 360px;
+    padding: 67px 0 0;
+    margin: 0 auto;
+    background: linear-gradient(90deg, rgba(59, 66, 73, 0.6) 0%, rgba(59, 66, 73, 0.9) 100%);
+    height: calc(100vh - 67px);
+}
+
+.heading {
+    margin-top: 150px;
+}
+
+.heading-sign-up {
+    margin-top: 50px;
+}
+
+.heading > a, .heading-sign-up > a {
+    color: rgba(255, 255, 255, 0.7);
+    padding-bottom: 10px;
+    border-bottom: solid 2px rgba(17, 97, 237, 0);
+    display: inline-block;
+}
+
+.heading > a:first-child, .heading-sign-up > a:first-child {
+    margin-left: 20px;
+    margin-right: 45px;
+}
+
+.heading > a:hover, .heading-sign-up > a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.heading > a.active, .heading-sign-up > a.active {
+    color: rgba(255, 255, 255, 1);
+    border-bottom: solid 4px #aaf0d1;
+    box-shadow: 0 1px 1px -1px #1d2124;
+}
+
+.heading > a span, .heading-sign-up > a span {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+
+.form {
+    max-width: 360px;
+    margin: 0 auto ;
+    padding: 45px;
+    text-align: center;
+    overflow: hidden;
+    position: inherit;
+}
+
+.form input {
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form .input-button {
+    font-family: "SF Pro Display", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background-color: rgba(0, 0, 0, .8);
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form .input-button:hover, .form button:active, .form button:focus {
+    background-color: rgba(0, 0, 0, .8);
+}

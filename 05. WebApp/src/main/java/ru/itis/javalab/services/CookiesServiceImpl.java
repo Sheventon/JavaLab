@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
-public class CookieServiceImpl implements CookieService {
+public class CookiesServiceImpl implements CookiesService {
 
-    private UsersRepository usersRepository;
-    private CookiesRepository cookiesRepository;
+    private final UsersRepository usersRepository;
+    private final CookiesRepository cookiesRepository;
 
-    public CookieServiceImpl(UsersRepository usersRepository, CookiesRepository cookiesRepository) {
+    public CookiesServiceImpl(UsersRepository usersRepository, CookiesRepository cookiesRepository) {
         this.usersRepository = usersRepository;
         this.cookiesRepository = cookiesRepository;
     }

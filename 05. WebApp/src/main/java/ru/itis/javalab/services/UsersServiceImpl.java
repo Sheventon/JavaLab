@@ -5,6 +5,7 @@ import ru.itis.javalab.models.User;
 import ru.itis.javalab.repositories.UsersRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UsersServiceImpl implements UsersService {
 
@@ -29,6 +30,20 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public User getByUsername(String username) {
         return usersRepository.findByUsername(username);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        usersRepository.findById(id)
+                .ifPresent(user -> {
+                    user.setIsDeleted(true);
+                    usersRepository.update(user);
+                });
+    }
+
+    @Override
+    public Optional<User> getById(Long id) {
+        return usersRepository.findById(id);
     }
 
     @Override
