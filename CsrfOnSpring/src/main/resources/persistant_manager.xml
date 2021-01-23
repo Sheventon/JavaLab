@@ -2,7 +2,7 @@
          maxIdleSwap="-1" maxIdleBackup="-1">
     <Store className="org.apache.catalina.session.JDBCStore"
            driverName="org.postgresql.Driver"
-           connectionURL="jdbc:postgresql://localhost:5432/crf?user=postgres&amp;password=1111"
+           connectionURL="jdbc:postgresql://localhost:5432/webapp?user=postgres&amp;password=1111"
            sessionTable="tomcat_sessions"
            sessionIdCol="id"
            sessionDataCol="data"

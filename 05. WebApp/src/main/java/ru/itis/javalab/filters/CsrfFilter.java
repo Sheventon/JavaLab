@@ -20,10 +20,6 @@ public class CsrfFilter implements Filter {
         if (request.getMethod().equals("POST")) {
             String requestCsrf = request.getParameter("csrf_token");
             String sessionCsrf = (String) request.getSession(false).getAttribute("csrf_token");
-
-            System.out.println("requestCsrf: " + requestCsrf);
-            System.out.println("sessionCsrf: " + sessionCsrf);
-
             if (sessionCsrf.equals(requestCsrf)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
@@ -32,22 +28,12 @@ public class CsrfFilter implements Filter {
             return;
         }
 
-
         if (request.getMethod().equals("GET")) {
             String csrf = UUID.randomUUID().toString();
             request.setAttribute("csrf_token", csrf);
             request.getSession().setAttribute("csrf_token", csrf);
-            //tokens.add(csrf);
-
-            System.out.println(request.getAttribute("csrf_token"));
-            System.out.println(request.getSession().getAttribute("csrf_token"));
-            /*System.out.println("TOKENS: {");
-            for(String s : tokens) {
-                System.out.println(s);
-            }
-            System.out.println("}");*/
-
         }
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
